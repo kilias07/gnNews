@@ -11,7 +11,7 @@ function App() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="country">
                     <Route index element={<CountryPage/>}/>
-                    <Route path=":number" element={<CountryPage/>}/>
+                    <Route path=":countryCode" element={<CountryPage/>}/>
                 </Route>
             </Routes>
         </Layout>

@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.test {
+  justify-self: end;
+}
+
+/* SKEW BG */
+@layer components {
+  .skew-bg {
+    @apply block w-full h-7 content-[''] bg-red-600 absolute top-0 -inset-x-1.5 -z-10 skew-y-[-5deg];
+  }
+
+  /* HR */
+  hr {
+    @apply h-px border-0 bg-gray-200;
+  }
+}
+
+/* LOGO */
+.logo {
+  @apply relative;
+}
+
+.logo * > div {
+  @apply text-lg relative inset-x-12 top-3 font-bold italic text-white;
+}
+
+.logo * > h1 {
+  @apply text-6xl font-medium;
+}
+
+.logo * > div:after {
+  @apply w-[5.5rem] h-7 skew-bg;
+}

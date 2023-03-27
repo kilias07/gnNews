@@ -18,7 +18,7 @@ export interface Article {
   source: Source;
   title: string;
   url: string;
-  urlToImage: string;
+  urlToImage?: string;
 }
 export interface Source {
   id: string | null;

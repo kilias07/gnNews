@@ -1,26 +1,46 @@
-import { ReactNode, useEffect, useMemo } from "react";
+import { useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 
-interface PortalProps {
-  children: ReactNode;
-  parent?: HTMLElement;
-  className?: string;
+function createWrapperAndAppendToBody(wrapperId: string) {
+  const wrapperElement = document.createElement("div");
+  wrapperElement.setAttribute("id", wrapperId);
+  document.body.appendChild(wrapperElement);
+  return wrapperElement;
 }
-export default function Portal({ children, parent, className }: PortalProps) {
-  const el = useMemo(() => document.createElement("div"), []);
-  useEffect(() => {
-    const target = parent && parent.appendChild! ? parent : document.body;
-    const classList = ["portal-container"];
 
-    if (className) className.split(" ").forEach((item) => classList.push(item));
+interface ReactPortalProps {
+  children: React.ReactNode;
+  wrapperId?: string;
+}
+function ReactPortal({
+  children,
+  wrapperId = "react-portal-wrapper",
+}: ReactPortalProps) {
+  const [wrapperElement, setWrapperElement] = useState(null);
 
-    classList.forEach((item) => el.classList.add(item));
-    target.appendChild(el);
+  useLayoutEffect(() => {
+    let element = document.getElementById(wrapperId)!;
+    let systemCreated = false;
+    // if element is not found with wrapperId or wrapperId is not provided,
+    // create and append to body
+    if (!element) {
+      systemCreated = true;
+      element = createWrapperAndAppendToBody(wrapperId);
+    }
+    setWrapperElement(element);
 
     return () => {
-      target.removeChild(el);
+      // delete the programatically created element
+      if (systemCreated && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
     };
-  }, [el, parent, className]);
+  }, [wrapperId]);
 
-  return createPortal(children, el);
+  // wrapperElement state will be null on very first render.
+  if (wrapperElement === null) return null;
+
+  return createPortal(children, wrapperElement);
 }
+
+export default ReactPortal;

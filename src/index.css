@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.test {
-  justify-self: end;
+@layer utilities {
+  .h-22 {
+    height: 5.5rem;
+  }
 }
 
 /* SKEW BG */

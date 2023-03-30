@@ -20,9 +20,17 @@ export default function CountryPage() {
       dispatch(update(data.articles.length));
     }
   }, [data]);
-
+  if (!data) {
+    return (
+      <div className="h-screen w-scren text-center text-3xl mt-20">
+        something went wrong
+      </div>
+    );
+  }
   return isFetching ? (
-    <div>Loading...</div>
+    <div className="min-h-screen w-screen flex justify-center items-center">
+      Loading...
+    </div>
   ) : (
     <div>
       <News news={data!.articles} />

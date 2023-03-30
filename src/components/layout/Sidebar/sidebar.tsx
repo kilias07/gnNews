@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { allCountries } from "./allCaountries";
-import GetAllCountriesFlag from "../../../utils/getAllCountriesFalg";
+import GetCountryFlag from "../../../utils/getCountryFlag";
+import useOnClickOutside from "../../../hooks/useClickOutside";
+import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setIsOpen(false));
+  const { t } = useTranslation();
 
   return (
-    <div className={`overflow-x-hidden ${isOpen ? "w-[12rem]" : "w-8"}`}>
-      <div className="mb-4 flex justify-between">
+    <div
+      ref={ref}
+      className={`overflow-x-hidden absolute h-screen z-40 bg-white ${
+        isOpen ? "w-[12rem]" : "w-12"
+      }`}
+    >
+      <div className="mb-4 flex justify-between sticky top-0 z-30 bg-white py-1">
         <button onClick={() => setIsOpen(!isOpen)} className="w-6">
-          {isOpen ? "<-" : "->"}
+          {isOpen ? <AiOutlineDoubleLeft /> : <AiOutlineDoubleRight />}
         </button>
-        <h3 className={`${isOpen ? "text-xl font-normal" : "hidden"}`}>
-          Choice country
+        <h3 className={`${isOpen ? "block" : "hidden"}`}>
+          {t("sidebar.choiceCountry")}
         </h3>
         <hr />
       </div>
@@ -22,6 +33,7 @@ export default function Sidebar() {
           return (
             <li key={code} className="my-2 text-sm">
               <NavLink
+                onClick={() => setIsOpen(false)}
                 to={{
                   pathname: `/country/${code}`,
                 }}
@@ -34,7 +46,7 @@ export default function Sidebar() {
                       }`}
                     >
                       <div className={`${isOpen ? "scale-90" : "scale-100"}`}>
-                        <GetAllCountriesFlag code={code} />
+                        <GetCountryFlag code={code} />
                       </div>
                       <span
                         className={`flex-1 ${

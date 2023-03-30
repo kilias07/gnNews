@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setLayouter } from "../../features/layouter/layouterSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { setLayouter } from "../../../features/layouter/layouterSlice";
 import { BsListUl, BsGrid3X3GapFill } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
+import LangBtn from "./langBtn";
 
 export default function Header() {
   const layoutType = useAppSelector((state) => state.layouter.value);
+
+  const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
   const handleLayouter = () => {
@@ -25,22 +29,23 @@ export default function Header() {
             <Link to={"/"}>
               <div>
                 <span>gn</span>
-                <span>Studio</span>
+                <span>News</span>
               </div>
               <h1 className="text-gray-900">News</h1>
             </Link>
           </div>
-          <ul className="mr-6 grow flex justify-end items-center gap-20 h-full">
-            <li>
+          <ul className="mr-6 grow flex flex-col-reverse items-end sm:flex-row justify-end sm:items-center gap-2 sm:gap-20 h-full">
+            <li className="flex gap-2">
               <button className={togglerStyle} onClick={handleLayouter}>
                 <BsGrid3X3GapFill />
                 <BsListUl />
               </button>
+              <LangBtn />
             </li>
             <li>
-              <button className="relative text-lg text-gray-800">
+              <button className="relative text-sm lg:text-lg text-gray-800">
                 <span className="border-2 border-red-600 h-10 px-3 py-1.5 hover:bg-gray-100 transition duration-200 rounded-md">
-                  task description
+                  {t("header.taskDescription")}
                 </span>
               </button>
             </li>

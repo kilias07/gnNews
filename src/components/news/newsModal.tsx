@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { Article } from "../../types/types";
 
 interface NewsModalProps {
@@ -9,6 +10,7 @@ interface NewsModalProps {
 
 function NewsModal({ article, setOpen }: NewsModalProps) {
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const closeOnEscapeKey = (e: KeyboardEvent) =>
@@ -23,7 +25,7 @@ function NewsModal({ article, setOpen }: NewsModalProps) {
   return createPortal(
     <>
       <div
-        className="backdrop-blur-2xl fixed inset-0 w-screen h-screen"
+        className="backdrop-blur-2xl fixed inset-0 w-screen h-screen z-40"
         onClick={handleClose}
       >
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[60rem] h-[60rem] bg-gray-100 rounded-lg  shadow-md p-16 flex flex-col justify-end">
@@ -45,7 +47,7 @@ function NewsModal({ article, setOpen }: NewsModalProps) {
               className="self-end mb-10 z-0 relative px-1 py-1 text-sm font-medium after:skew-bg after:bg-gray-800 after:w-[6rem] text-white focus:ring-2 focus:outline-none"
               href={article.url}
             >
-              Read more
+              {t("btn.readMore")}
             </a>
             <span>{article.author}</span>
             <span>{article.source.name}</span>

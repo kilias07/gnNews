@@ -1,0 +1,22 @@
+{
+  "header": {
+    "taskDescription": "opis zadania"
+  },
+  "footer": {
+    "numberOfArticles": "ilość artykułów",
+    "time": "czas"
+  },
+  "btn": {
+    "readMore": "czytaj więcej"
+  },
+  "sidebar": {
+    "choiceCountry": "wybierz kraj"
+  },
+  "news": {
+    "noNews": "brak wiadomości"
+  },
+  "mainSite": {
+    "title": "Witaj na stronie gnNews",
+    "description": "To jest strona z najnowszymi wiadomościami z kraju i ze świata. Możesz wybrać kraj z którego chcesz czytać wiadomości. Możesz też wybrać ilość artykułów jakie chcesz zobaczyć."
+  }
+}

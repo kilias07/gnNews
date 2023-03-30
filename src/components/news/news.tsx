@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import useOnClickOutside from "../../hooks/useClickOutside";
 import { useAppSelector } from "../../app/hooks";
 import NewsModal from "./newsModal";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   article: Article;
@@ -16,7 +17,7 @@ const articleSource = (articleTitle: Article["title"]) => {
 function noNews() {
   return (
     <div className="mx-6 flex items-center justify-center text-2xl">
-      No news
+      {useTranslation().t("news.noNews")}
     </div>
   );
 }
@@ -33,7 +34,9 @@ function List({ article }: Props) {
         className="cursor-pointer flex justify-between items-center py-1"
         onClick={() => setOpen(true)}
       >
-        <span className="basis-8/12 font-medium text-gray-900">{title}</span>
+        <span className="basis-8/12 font-medium text-gray-900 text-sm sm:text-base">
+          {title}
+        </span>
         <div className="text-right font-medium text-gray-500 text-sm">
           <p>{source}</p>
           {article.publishedAt && (
@@ -51,12 +54,13 @@ function List({ article }: Props) {
 function Cards({ article }: Props) {
   const [title, source] = articleSource(article.title);
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
       {open && <NewsModal article={article} setOpen={setOpen} />}
       <div
-        className={`max-w-sm bg-white border border-gray-200 rounded-lg shadow w-[24rem] ${
+        className={` max-w-sm bg-white border border-gray-200 rounded-lg shadow sm:w-fit lg:w-[24rem] ${
           article.urlToImage
             ? "h-[36rem] [&>div]:h-[18rem]"
             : "h-[20rem] [&>div]:h-[20rem]"
@@ -85,7 +89,7 @@ function Cards({ article }: Props) {
               className="z-0 relative inline-flex px-1 py-1 text-sm font-medium after:hover:skew-bg after:hover:bg-gray-800 after:hover:w-[7rem] hover:text-white focus:ring-2 focus:outline-none"
               onClick={() => setOpen(true)}
             >
-              Read more
+              {t("btn.readMore")}
               <svg
                 aria-hidden="true"
                 className="w-4 h-4 ml-2 -mr-1"
@@ -121,7 +125,11 @@ export default function News({ news }: { news: Article[] }) {
   if (!news.length) return noNews();
   return (
     <div
-      className={`mx-6 ${layoutType === "grid" ? "flex flex-wrap gap-4" : ""}`}
+      className={`${
+        layoutType === "grid"
+          ? "flex flex-wrap gap-4 justify-center"
+          : "sm:ml-20 ml-12 mr-2"
+      }`}
     >
       {news.map((article) =>
         layoutType === "list" ? (

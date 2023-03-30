@@ -1,0 +1,22 @@
+{
+  "header": {
+    "taskDescription": "Task description"
+  },
+  "footer": {
+    "numberOfArticles": "Number of articles",
+    "time": "time"
+  },
+  "btn": {
+    "readMore": "read more"
+  },
+  "sidebar": {
+    "choiceCountry": "Choose country"
+  },
+  "news": {
+    "noNews": "brak wiadomości"
+  },
+  "mainSite": {
+    "title": "Welcome to gnNews !",
+    "description": "This is a website with the latest news from the country and around the world. You can choose the country from which you want to read the news. You can also choose the number of articles you want to see."
+  }
+}

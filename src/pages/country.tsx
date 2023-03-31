@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Country } from "../types/types";
 import News from "../components/news/news";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { update } from "../features/counter/counterSlice";
 import { useFetchNewsQuery } from "../features/news/newsApiSlice";
+import Loader from "../components/loader";
 
 export default function CountryPage() {
   let { countryCode } = useParams<{ countryCode: Country["code"] }>();
@@ -20,17 +21,17 @@ export default function CountryPage() {
       dispatch(update(data.articles.length));
     }
   }, [data]);
-  if (!data) {
+
+  if (!data && !isFetching) {
     return (
       <div className="h-screen w-scren text-center text-3xl mt-20">
         something went wrong
       </div>
     );
   }
+
   return isFetching ? (
-    <div className="min-h-screen w-screen flex justify-center items-center">
-      Loading...
-    </div>
+    <Loader />
   ) : (
     <div>
       <News news={data!.articles} />

@@ -12,7 +12,6 @@ export const apiSlice = createApi({
     baseUrl: "https://newsapi.org/v2/",
     prepareHeaders(headers) {
       headers.set("x-api-key", import.meta.env.VITE_NEWS_API_KEY);
-
       return headers;
     },
   }),

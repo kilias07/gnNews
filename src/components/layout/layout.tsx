@@ -4,7 +4,7 @@ import Footer from "./footer";
 import SideBar from "./Sidebar/sidebar";
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return (
+    return (
     <>
       <Header />
       <div className="flex mx-auto container">

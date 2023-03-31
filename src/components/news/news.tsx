@@ -1,6 +1,5 @@
 import { Article } from "../../types/types";
-import { useRef, useState } from "react";
-import useOnClickOutside from "../../hooks/useClickOutside";
+import { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import NewsModal from "./newsModal";
 import { useTranslation } from "react-i18next";
@@ -29,7 +28,6 @@ function List({ article }: Props) {
   return (
     <>
       {open && <NewsModal article={article} setOpen={setOpen} />}
-
       <div
         className="cursor-pointer flex justify-between items-center py-1"
         onClick={() => setOpen(true)}
